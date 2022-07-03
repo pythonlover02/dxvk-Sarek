@@ -54,6 +54,7 @@ namespace dxvk {
    * \brief Context feature bits
    */
   enum class DxvkContextFeature {
+    NullDescriptors,
     ExtendedDynamicState,
   };
 

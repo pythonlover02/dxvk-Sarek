@@ -1935,6 +1935,7 @@ namespace dxvk {
 
     enabled.extRobustness2.robustBufferAccess2                    = supported.extRobustness2.robustBufferAccess2;
     enabled.extRobustness2.robustImageAccess2                     = supported.extRobustness2.robustImageAccess2;
+    enabled.extRobustness2.nullDescriptor                         = supported.extRobustness2.nullDescriptor;
 
     enabled.extShaderDemoteToHelperInvocation.shaderDemoteToHelperInvocation  = supported.extShaderDemoteToHelperInvocation.shaderDemoteToHelperInvocation;
 
