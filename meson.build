@@ -60,9 +60,9 @@ add_project_link_arguments(cc.get_supported_link_arguments(link_args), language:
 dxvk_include_path = include_directories('./include')
 
 if (cpu_family == 'x86_64')
-  dxvk_library_path = meson.source_root() + '/lib'
+  dxvk_library_path = meson.current_source_dir() + '/lib'
 else
-  dxvk_library_path = meson.source_root() + '/lib32'
+  dxvk_library_path = meson.current_source_dir() + '/lib32'
 endif
 
 dxvk_extradep = [ ]
