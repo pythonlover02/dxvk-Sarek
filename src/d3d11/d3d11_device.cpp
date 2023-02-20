@@ -1897,7 +1897,7 @@ namespace dxvk {
     DxvkDeviceFeatures supported = adapter->features();
     DxvkDeviceFeatures enabled   = {};
 
-    enabled.core.features.geometryShader                          = VK_TRUE;
+    enabled.core.features.geometryShader                          = supported.core.features.geometryShader;
     enabled.core.features.robustBufferAccess                      = VK_TRUE;
     enabled.core.features.shaderStorageImageExtendedFormats       = VK_TRUE;
     enabled.core.features.shaderStorageImageWriteWithoutFormat    = VK_TRUE;
@@ -1928,7 +1928,7 @@ namespace dxvk {
       enabled.core.features.sampleRateShading                     = VK_TRUE;
       enabled.core.features.samplerAnisotropy                     = VK_TRUE;
       enabled.core.features.shaderClipDistance                    = VK_TRUE;
-      enabled.core.features.shaderCullDistance                    = VK_TRUE;
+      enabled.core.features.shaderCullDistance                    = supported.core.features.shaderCullDistance;
       enabled.core.features.textureCompressionBC                  = VK_TRUE;
       enabled.extDepthClipEnable.depthClipEnable                  = supported.extDepthClipEnable.depthClipEnable;
       enabled.extHostQueryReset.hostQueryReset                    = supported.extHostQueryReset.hostQueryReset;
@@ -1965,7 +1965,7 @@ namespace dxvk {
       enabled.core.features.shaderFloat64                         = supported.core.features.shaderFloat64;
       enabled.core.features.shaderInt64                           = supported.core.features.shaderInt64;
       enabled.core.features.shaderStorageImageReadWithoutFormat   = supported.core.features.shaderStorageImageReadWithoutFormat;
-      enabled.core.features.tessellationShader                    = VK_TRUE;
+      enabled.core.features.tessellationShader                    = supported.core.features.tessellationShader;
     }
     
     if (featureLevel >= D3D_FEATURE_LEVEL_11_1) {
