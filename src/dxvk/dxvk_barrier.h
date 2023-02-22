@@ -1,5 +1,7 @@
 #pragma once
 
+#include <utility>
+
 #include "dxvk_buffer.h"
 #include "dxvk_cmdlist.h"
 #include "dxvk_image.h"

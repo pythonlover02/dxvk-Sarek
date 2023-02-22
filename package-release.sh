@@ -23,6 +23,7 @@ shift 2
 
 opt_nopackage=0
 opt_devbuild=0
+opt_buildid=false
 
 crossfile="build-win"
 
@@ -34,6 +35,9 @@ while [ $# -gt 0 ]; do
   "--dev-build")
     opt_nopackage=1
     opt_devbuild=1
+    ;;
+  "--build-id")
+    opt_buildid=true
     ;;
   *)
     echo "Unrecognized option: $1" >&2
@@ -48,13 +52,19 @@ function build_arch {
   
   cd "$DXVK_SRC_DIR"
 
-  meson --cross-file "$DXVK_SRC_DIR/$crossfile$1.txt" \
-        --buildtype "release"                         \
-        --prefix "$DXVK_BUILD_DIR"                    \
-        --strip                                       \
-        --bindir "x$1"                                \
-        --libdir "x$1"                                \
-        -Denable_tests=false                          \
+  opt_strip=
+  if [ $opt_devbuild -eq 0 ]; then
+    opt_strip=--strip
+  fi
+
+  meson setup --cross-file "$DXVK_SRC_DIR/$crossfile$1.txt" \
+        --buildtype "release"                               \
+        --prefix "$DXVK_BUILD_DIR"                          \
+        $opt_strip                                          \
+        --bindir "x$1"                                      \
+        --libdir "x$1"                                      \
+        -Denable_tests=false                                \
+        -Dbuild_id=$opt_buildid                             \
         "$DXVK_BUILD_DIR/build.$1"
 
   cd "$DXVK_BUILD_DIR/build.$1"

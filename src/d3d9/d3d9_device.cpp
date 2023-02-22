@@ -1961,6 +1961,7 @@ namespace dxvk {
             m_flags.set(D3D9DeviceFlag::DirtyDepthBounds);
             break;
           }
+          [[fallthrough]];
 
         default:
           static bool s_errorShown[256];

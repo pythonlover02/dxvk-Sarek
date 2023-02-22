@@ -399,7 +399,7 @@ namespace dxvk {
       case DxbcOperandType::InputControlPoint:
         if (m_programInfo.type() != DxbcProgramType::HullShader)
           break;
-        /* fall through */
+        [[fallthrough]];
 
       case DxbcOperandType::Input:
       case DxbcOperandType::Output: {
@@ -1865,7 +1865,7 @@ namespace dxvk {
       case DxbcOpcode::Ne:
       case DxbcOpcode::DNe:
         invert = true;
-        /* fall through */
+        [[fallthrough]];
 
       case DxbcOpcode::Eq:
       case DxbcOpcode::DEq:

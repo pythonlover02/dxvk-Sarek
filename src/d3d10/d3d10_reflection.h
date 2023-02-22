@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "d3d10_include.h"
+#include <memory>
 
 #include <d3d10shader.h>
 #include <d3d11shader.h>
