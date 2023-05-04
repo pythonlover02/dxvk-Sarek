@@ -979,9 +979,23 @@ namespace dxvk {
       // Inform the user that we loaded a default config
       Logger::info(str::format("Found built-in config:"));
 
-      for (auto& pair : appConfig->second.m_options)
+      for (auto& pair : appConfig->second.m_options) {
         Logger::info(str::format("  ", pair.first, " = ", pair.second));
-
+        
+        Logger::info("Checking config:");
+        if(pair.first == "setenv") {
+          size_t separator = pair.second.find('=');
+          if (separator == std::string::npos) {
+            // handle error, separator not found
+          } else {
+            // split input string into two separate strings
+            std::string name = pair.second.substr(0, separator);
+            std::string value = pair.second.substr(separator + 1);
+            Logger::info(str::format("Set Env: ", name, "=", value));
+            env::setEnvVar(name.c_str(), value.c_str());
+          }
+        }
+      }
       return appConfig->second;
     }
 

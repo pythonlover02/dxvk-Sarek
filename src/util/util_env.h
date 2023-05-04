@@ -27,6 +27,16 @@ namespace dxvk::env {
    * \returns Value of the variable
    */
   std::string getEnvVar(const char* name);
+
+  using wineSetUnixEnv_proc = void (CDECL *)(const char *, const char *);
+  
+  /**
+   * \brief Sets environment variable
+   *
+   * \param [in] env variable name 
+   * \param [in] env variable value
+   */
+  void setEnvVar(const char* name, const char* value);
   
   /**
    * \brief Checks whether a file name has a given extension
