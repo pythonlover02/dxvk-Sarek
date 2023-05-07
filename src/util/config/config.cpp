@@ -780,6 +780,15 @@ namespace dxvk {
     { R"(\\(starwarsjedifallenorder|SwGame-Win64-Shipping)\.exe$)", {{
       { "dxvk.enableAsync",                 "True" },
     }} },
+
+    /**********************************************/
+    /* TONEMAPPING                               */
+    /**********************************************/
+
+    /* Street Fighter V                          */
+    { R"(\\StreetFighterV\.exe$)", {{
+      { "setenv",                           "NAS_TONEMAP_C=0"},
+    }} },
   }};
 
 
