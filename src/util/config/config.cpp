@@ -789,6 +789,10 @@ namespace dxvk {
     { R"(\\StreetFighterV\.exe$)", {{
       { "setenv",                           "NAS_TONEMAP_C=0"},
     }} },
+    /* Boardlands 3                              */
+    { R"(\\Borderlands3\.exe$)", {{
+      { "setenv",                           "NAS_TONEMAP_C=0"},
+    }} },
   }};
 
 
