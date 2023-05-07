@@ -8,6 +8,7 @@ cc = meson.get_compiler('c')
 dxvk_is_msvc = cpp.get_id() == 'msvc'
 
 compiler_args = [
+  '-O3',
   '-msse',
   '-msse2',
   '-msse3',
