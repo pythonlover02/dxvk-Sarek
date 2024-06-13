@@ -5,7 +5,7 @@ A Vulkan-based translation layer for Direct3D 10/11 which allows running 3D appl
 Release builds can be found [here](https://github.com/Gcenx/DXVK-macOS/releases).
 
 ## How to use
-In order to install a DXVK package obtained from the [release](https://github.com/Gcenx/DXVK-macOS/releases) page into a given wine prefix, copy or symlink the DLLs into the following directories as follows, then open `winecfg` and manually add DLL overrides for `d3d11`, `d3d10core`, `dxgi`, and `d3d9`:
+In order to install a DXVK package obtained from the [release](https://github.com/Gcenx/DXVK-macOS/releases) page into a given wine prefix, copy or symlink the DLLs into the following directories as follows, then open `winecfg` and manually add DLL overrides for `d3d11` and `d3d10core`:
 ```
 WINEPREFIX=/path/to/wineprefix
 cp x64/*.dll $WINEPREFIX/drive_c/windows/system32
