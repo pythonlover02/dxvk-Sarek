@@ -904,6 +904,10 @@ namespace dxvk {
     { R"(\\soniccd\.exe$)", {{
       { "d3d9.maxFrameRate",                "60" },
     }} },
+    /* UK Truck Simulator 1                    */
+    { R"(\\UK Truck Simulator\\bin\\win_x86\\game\.exe$)", {{
+      { "d3d9.floatEmulation",              "Strict" },
+    }} },
   }};
 
 
