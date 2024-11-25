@@ -862,6 +862,10 @@ namespace dxvk {
     { R"(\\SG_ELITE\\Game\.exe$)", {{
       { "d3d9.maxFrameRate",                "60" },
     }} },
+    /* The Incredibles                         */
+    { R"(\\IncPC\.exe$)", {{
+      { "d3d9.maxFrameRate",                "59" },
+    }} },
   }};
 
 
