@@ -429,6 +429,10 @@ namespace dxvk {
     { R"(\\GRW\.exe$)", {{
       { "d3d11.dcSingleUseMode",            "False" },
     }} },
+    /* Riders Republic - Statically linked AMDAGS */
+    { R"(\\RidersRepublic(_BE)?\.exe$)", {{
+      { "dxgi.customVendorId",              "10de" },
+    }} },
     /* Kenshi                                     *
      * Helps CPU bound performance                */
     { R"(\\kenshi_x64\.exe$)", {{
