@@ -878,6 +878,10 @@ namespace dxvk {
     { R"(\\Aviary Attorney\\nw\.exe$)", {{
       { "d3d9.maxFrameRate",                "60" },
     }} },
+    /* Drakensang: The Dark Eye                */
+    { R"(\\drakensang\.exe$)", {{
+      { "d3d9.deferSurfaceCreation",        "True" },
+    }} },
   }};
 
 
