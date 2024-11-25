@@ -896,6 +896,10 @@ namespace dxvk {
     { R"(\\AoK HD\.exe$)", {{
       { "d3d9.maxFrameLatency",             "1" },
     }} },
+    /* Battlestations Midway                   */
+    { R"(\\Battlestationsmidway\.exe$)", {{
+      { "d3d9.apitraceMode",                "True" },
+    }} },
   }};
 
 
