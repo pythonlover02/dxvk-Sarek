@@ -584,8 +584,12 @@ namespace dxvk {
       { "dxgi.maxDeviceMemory",             "128" },
       { "d3d9.supportDFFormats",            "False" },
     }} },
-    /* Battlefield 2 (bad z-pass)                 */
-    { R"(\\BF2\.exe$)", {{
+    /* Battlefield 2 & Battlefield 2142           *
+     * Bad z-pass and ingame GUI loss on alt tab  *
+     * Also hang when alt tabbing which seems     *
+     * like a game bug that d3d9 drivers work     *
+     * around.                                    */
+    { R"(\\(BF2|BF2142)\.exe$)", {{
       { "d3d9.longMad",                     "True" },
     }} },
     /* SpellForce 2 Series                        */
