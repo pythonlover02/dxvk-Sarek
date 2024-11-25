@@ -858,6 +858,10 @@ namespace dxvk {
       { "d3d9.floatEmulation",              "Strict"   },
       { "d3d9.allowDirectBufferMapping",    "False" },
     }} },
+    /* STEINS;GATE ELITE                       */
+    { R"(\\SG_ELITE\\Game\.exe$)", {{
+      { "d3d9.maxFrameRate",                "60" },
+    }} },
   }};
 
 
