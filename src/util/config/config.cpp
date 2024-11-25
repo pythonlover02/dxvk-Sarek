@@ -900,6 +900,10 @@ namespace dxvk {
     { R"(\\Battlestationsmidway\.exe$)", {{
       { "d3d9.apitraceMode",                "True" },
     }} },
+    /* Sonic CD                                */
+    { R"(\\soniccd\.exe$)", {{
+      { "d3d9.maxFrameRate",                "60" },
+    }} },
   }};
 
 
