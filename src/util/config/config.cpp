@@ -874,6 +874,10 @@ namespace dxvk {
     { R"(\\Snowblind\.(SP|MP|exe)$)", {{
       { "d3d9.maxFrameRate",                "60" },
     }} },
+    /* Aviary Attorney                         */
+    { R"(\\Aviary Attorney\\nw\.exe$)", {{
+      { "d3d9.maxFrameRate",                "60" },
+    }} },
   }};
 
 
