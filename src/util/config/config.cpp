@@ -847,6 +847,11 @@ namespace dxvk {
       { "d3d9.customDeviceId",              "05E0" },
       { "dxgi.nvapiHack",                   "False" },
     }} },
+    /* Battle Fantasia Revised Edition         *
+     * Speedup above 60fps                     */
+    { R"(\\bf10\.exe$)", {{
+      { "d3d9.maxFrameRate",                "60" },
+    }} },
   }};
 
 
