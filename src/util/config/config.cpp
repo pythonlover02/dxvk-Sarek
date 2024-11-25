@@ -870,6 +870,10 @@ namespace dxvk {
     { R"(\\Vietnam\.exe$)", {{
       { "d3d9.maxFrameRate",                "60" },
     }} },
+    /* Project: Snowblind                      */
+    { R"(\\Snowblind\.(SP|MP|exe)$)", {{
+      { "d3d9.maxFrameRate",                "60" },
+    }} },
   }};
 
 
