@@ -852,6 +852,12 @@ namespace dxvk {
     { R"(\\bf10\.exe$)", {{
       { "d3d9.maxFrameRate",                "60" },
     }} },
+    /* Halo Online                             *
+     * Black textures                          */
+    { R"(\\eldorado\.exe$)", {{
+      { "d3d9.floatEmulation",              "Strict"   },
+      { "d3d9.allowDirectBufferMapping",    "False" },
+    }} },
   }};
 
 
