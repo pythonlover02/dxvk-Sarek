@@ -866,6 +866,10 @@ namespace dxvk {
     { R"(\\IncPC\.exe$)", {{
       { "d3d9.maxFrameRate",                "59" },
     }} },
+    /* Conflict Vietnam                        */
+    { R"(\\Vietnam\.exe$)", {{
+      { "d3d9.maxFrameRate",                "60" },
+    }} },
   }};
 
 
