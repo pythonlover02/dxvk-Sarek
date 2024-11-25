@@ -600,9 +600,14 @@ namespace dxvk {
     { R"(\\EverQuest2.*\.exe$)", {{
       { "d3d9.alphaTestWiggleRoom", "True" },
     }} },
-    /* Tomb Raider: Legend                       */
-    { R"(\\trl\.exe$)", {{
+    /* Tomb Raider: Legend, Anniversary, Underworld  *
+     * Read from a buffer created with:              *
+     * D3DPOOL_DEFAULT,                              *
+     * D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY buffer. *
+     * Legend flickers with next gen content option. */
+    { R"(\\(trl|tra|tru)\.exe$)", {{
       { "d3d9.apitraceMode",                "True" },
+      { "d3d9.maxFrameRate",                "60" },
     }} },
     /* Everquest                                 */
     { R"(\\eqgame\.exe$)", {{
