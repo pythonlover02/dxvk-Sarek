@@ -856,6 +856,12 @@ namespace dxvk {
     { R"(\\bf10\.exe$)", {{
       { "d3d9.maxFrameRate",                "60" },
     }} },
+    /* Codename Panzers Phase One/Two          *
+     * Main menu won't render after intros     *
+     * and CPU bound performance               */
+    { R"(\\(PANZERS|PANZERS_Phase_2)\.exe$)", {{
+      { "d3d9.apitraceMode",                "True" },
+    }} },
     /* Halo Online                             *
      * Black textures                          */
     { R"(\\eldorado\.exe$)", {{
