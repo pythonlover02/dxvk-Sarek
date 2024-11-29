@@ -991,6 +991,7 @@ namespace dxvk {
     { R"(\\(FarCry2|farcry2game)\.exe$)", {{
       { "d3d9.customVendorId",              "10de" },
       { "d3d9.apitraceMode",                "True" },
+    }} },
   }};
 
 
