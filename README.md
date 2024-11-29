@@ -32,6 +32,7 @@ In order to remove DXVK from a prefix, remove the DLLs and DLL overrides, and ru
 ## Build instructions
 
 In order to pull in all submodules that are needed for building, clone the repository using the following command/commands:
+
 For Normal DXVK:
 ```
 git clone --branch 1.10.x-Proton-Sarek --recurse https://github.com/pythonlover02/DXVK-Sarek.git DXVK
