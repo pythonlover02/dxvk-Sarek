@@ -965,6 +965,10 @@ namespace dxvk {
     { R"(\\APB\.exe$)", {{
       { "d3d9.apitraceMode",                "True" },
     }} },
+    /* Battle Mages - helps CPU bound perf         */
+    { R"(\\Battle Mages\\mages\.exe$)", {{
+      { "d3d9.apitraceMode",                "True" },
+    }} },
   }};
 
 
