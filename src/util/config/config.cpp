@@ -960,6 +960,11 @@ namespace dxvk {
       { "dxgi.customDeviceId",              "05e0" },
       { "dxgi.customDeviceDesc",            "GeForce GTX 295" },
     }} },
+    /* APB: Reloaded                               *
+     * Fixes frametime jumps when shooting         */
+    { R"(\\APB\.exe$)", {{
+      { "d3d9.apitraceMode",                "True" },
+    }} },
   }};
 
 
