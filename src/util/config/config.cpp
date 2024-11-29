@@ -21,7 +21,7 @@ namespace dxvk {
     /* Batman Arkham Knight - doesn't like intel vendor id 
       (refuses to boot if vendor isn't 0x10de or 0x1002)  */
     { R"(\\BatmanAK\.exe$)", {{
-      { "dxgi.customVendorId",              "10de" },
+      { "dxgi.customVendorId",              "1002" },
     }} },
     /* Assassin's Creed Syndicate: amdags issues  */
     { R"(\\ACS\.exe$)", {{
