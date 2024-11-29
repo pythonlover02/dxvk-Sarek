@@ -938,6 +938,11 @@ namespace dxvk {
     { R"(\\FalloutNV\.exe$)", {{ 
       { "d3d9.floatEmulation",              "Strict" },
     }} },
+    /* Dungeons and Dragons: Dragonshard         *
+     * Massive FPS decreases in some scenes      */
+    { R"(\\Dragonshard\.exe$)", {{ 
+      { "d3d9.apitraceMode",                "True" },
+    }} },
   }};
 
 
