@@ -923,6 +923,11 @@ namespace dxvk {
     { R"(\\ninthdawnii\.exe$)", {{
       { "d3d9.deferSurfaceCreation",        "True" },
     }} },
+    /* Delta Force: Xtreme 1 & 2                 *
+     * Black screen on Alt-Tab and performance   */
+    { R"(\\(DFX|dfx2)\.exe$)", {{
+      { "d3d9.apitraceMode",                "True" },
+    }} },
   }};
 
 
