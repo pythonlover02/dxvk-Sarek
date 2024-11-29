@@ -979,6 +979,11 @@ namespace dxvk {
     { R"(\\FEAR(MP|XP|XP2)?\.exe$)", {{
       { "d3d9.maxFrameRate",                 "360" },
     }} },
+    /* Secret World Legends - d3d9 mode only sees  *
+     * 512MB vram locking higher graphics presets  */
+    { R"(\\SecretWorldLegends\.exe$)", {{
+      { "d3d9.memoryTrackTest",              "True" },
+    }} },
   }};
 
 
