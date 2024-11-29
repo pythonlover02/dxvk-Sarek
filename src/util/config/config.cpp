@@ -949,6 +949,10 @@ namespace dxvk {
       R"(|The Lord of the Rings, The Rise of the Witch-king)\\game\.dat$)", {{
       { "d3d9.apitraceMode",                "True" },
     }} },
+    /* WRC4 - Audio breaks above 60fps           */
+    { R"(\\WRC4\.exe$)", {{
+      { "d3d9.maxFrameRate",                "60" },
+    }} },
   }};
 
 
