@@ -933,6 +933,11 @@ namespace dxvk {
     { R"(\\prototypef\.exe$)", {{ 
       { "d3d9.supportDFFormats",            "False" },
     }} },
+    /* Fallout New Vegas - Various visual issues *
+     * with mods such as New Vegas Reloaded      */
+    { R"(\\FalloutNV\.exe$)", {{ 
+      { "d3d9.floatEmulation",              "Strict" },
+    }} },
   }};
 
 
