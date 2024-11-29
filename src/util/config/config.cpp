@@ -943,6 +943,12 @@ namespace dxvk {
     { R"(\\Dragonshard\.exe$)", {{ 
       { "d3d9.apitraceMode",                "True" },
     }} },
+    /* Battle for Middle-earth 2 and expansion   *
+     * Slowdowns in certain scenarios            */
+    { R"(\\(The Battle for Middle-earth( \(tm\))? II( Demo)?)"
+      R"(|The Lord of the Rings, The Rise of the Witch-king)\\game\.dat$)", {{
+      { "d3d9.apitraceMode",                "True" },
+    }} },
   }};
 
 
