@@ -992,6 +992,10 @@ namespace dxvk {
       { "d3d9.customVendorId",              "10de" },
       { "d3d9.apitraceMode",                "True" },
     }} },
+    /* Alpha Protocol - Rids unwanted reflections  */
+    { R"(\\APGame\.exe$)", {{
+      { "d3d9.forceSamplerTypeSpecConstants", "True" },
+    }} },
   }};
 
 
