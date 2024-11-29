@@ -953,6 +953,13 @@ namespace dxvk {
     { R"(\\WRC4\.exe$)", {{
       { "d3d9.maxFrameRate",                "60" },
     }} },
+    /* Splinter Cell Conviction - Alt-tab black  *
+     * screen and unsupported GPU complaint      */
+    { R"(\\conviction_game\.exe$)", {{
+      { "dxgi.customVendorId",              "10de" },
+      { "dxgi.customDeviceId",              "05e0" },
+      { "dxgi.customDeviceDesc",            "GeForce GTX 295" },
+    }} },
   }};
 
 
