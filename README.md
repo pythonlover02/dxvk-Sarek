@@ -31,9 +31,15 @@ In order to remove DXVK from a prefix, remove the DLLs and DLL overrides, and ru
 
 ## Build instructions
 
-In order to pull in all submodules that are needed for building, clone the repository using the following command:
+In order to pull in all submodules that are needed for building, clone the repository using the following command/commands:
+
+For Normal DXVK:
 ```
-git clone --recursive https://github.com/pythonlover02/DXVK-Sarek
+git clone --branch 1.10.x-Proton-Sarek --recurse https://github.com/pythonlover02/DXVK-Sarek.git DXVK
+```
+For DXVK with Async Patch:
+```
+git clone --branch 1.10.x-Proton-Sarek-Async --recurse https://github.com/pythonlover02/DXVK-Sarek.git DXVK-Async
 ```
 
 ### Requirements:
@@ -138,7 +144,7 @@ update-alternatives --config x86_64-w64-mingw32-g++
 update-alternatives --config i686-w64-mingw32-gcc
 update-alternatives --config i686-w64-mingw32-g++
 ```
-For non debian based distros, make sure that your mingw-w64-gcc cross compiler 
+For non debian based distros, make sure that your mingw-w64-gcc cross compiler
 does have `--enable-threads=posix` enabled during configure. If your distro does
 ship its mingw-w64-gcc binary with `--enable-threads=win32` you might have to
-recompile locally or open a bug at your distro's bugtracker to ask for it. 
+recompile locally or open a bug at your distro's bugtracker to ask for it.
