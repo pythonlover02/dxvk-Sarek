@@ -928,6 +928,11 @@ namespace dxvk {
     { R"(\\(DFX|dfx2)\.exe$)", {{
       { "d3d9.apitraceMode",                "True" },
     }} },
+    /* Prototype                                 *
+     * Incorrect shadows on AMD & Intel          */
+    { R"(\\prototypef\.exe$)", {{ 
+      { "d3d9.supportDFFormats",            "False" },
+    }} },
   }};
 
 
