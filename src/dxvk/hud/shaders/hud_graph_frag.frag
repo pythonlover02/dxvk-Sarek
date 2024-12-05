@@ -22,6 +22,7 @@ uniform push_data_t {
   vec2 pos;
   vec2 size;
   vec2 scale;
+  float opacity;
 };
 
 vec3 linearToSrgb(vec3 color) {
@@ -53,9 +54,8 @@ void main() {
   o_color = mix(
     unpackUnorm4x8(p0.color),
     unpackUnorm4x8(p1.color), fx);
+  o_color *= alpha * opacity;
 
   if (!srgbSwapchain)
     o_color.rgb = linearToSrgb(o_color.rgb);
-
-  o_color *= alpha;
 }
