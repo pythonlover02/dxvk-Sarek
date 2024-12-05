@@ -58,12 +58,12 @@ namespace dxvk {
      * match the clear behaviour of D3D11.        *
      * Intel needs to match the AMD result        */
     { R"(\\(farcry3|fc3_blooddragon)_d3d11\.exe$)", {{
-      { "dxgi.nvapiHack",                   "False" },
+      { "dxgi.hideNvidiaGpu",              "False" },
       { "dxgi.customVendorId",              "1002" },
     }} },
     /* Far Cry 4 and Primal: Same as Far Cry 3    */
     { R"(\\(FarCry4|FCPrimal)\.exe$)", {{
-      { "dxgi.nvapiHack",                   "False" },
+      { "dxgi.hideNvidiaGpu",              "False" },
       { "dxgi.customVendorId",              "1002" },
     }} },
     /* Frostpunk: Renders one frame with D3D9     *
@@ -107,15 +107,15 @@ namespace dxvk {
     }} },
     /* Call of Duty WW2                           */
     { R"(\\s2_sp64_ship\.exe$)", {{
-      { "dxgi.nvapiHack",                   "False" },
+      { "dxgi.hideNvidiaGpu",              "False" },
     }} },
     /* Need for Speed 2015                        */
     { R"(\\NFS16\.exe$)", {{
-      { "dxgi.nvapiHack",                   "False" },
+      { "dxgi.hideNvidiaGpu",              "False" },
     }} },
     /* Mass Effect Andromeda                      */
     { R"(\\MassEffectAndromeda\.exe$)", {{
-      { "dxgi.nvapiHack",                   "False" },
+      { "dxgi.hideNvidiaGpu",              "False" },
     }} },
     /* Mirror`s Edge Catalyst: Crashes on AMD     */
     { R"(\\MirrorsEdgeCatalyst(Trial)?\.exe$)", {{
@@ -123,7 +123,7 @@ namespace dxvk {
     }} },
     /* Star Wars Battlefront (2015)               */
     { R"(\\starwarsbattlefront(trial)?\.exe$)", {{
-      { "dxgi.nvapiHack",                   "False" },
+      { "dxgi.hideNvidiaGpu",              "False" },
     }} },
     /* Dark Souls Remastered                      */
     { R"(\\DarkSoulsRemastered\.exe$)", {{
@@ -305,7 +305,7 @@ namespace dxvk {
     { R"(\\GoW\.exe$)", {{
       { "d3d11.ignoreGraphicsBarriers",     "True" },
       { "d3d11.relaxedBarriers",            "True" },
-      { "dxgi.nvapiHack",                   "False" },
+      { "dxgi.hideNvidiaGpu",              "False" },
       { "dxgi.maxFrameLatency",             "1"    },
     }} },
     /* AoE 2 DE - runs poorly for some users      */
@@ -389,7 +389,7 @@ namespace dxvk {
     }} },
     /* Tom Clancy's Ghost Recon Breakpoint        */
     { R"(\\GRB\.exe$)", {{
-      { "dxgi.nvapiHack",               "False" },
+      { "dxgi.hideNvidiaGpu",           "False" },
     }} },
     /* GTA V performance issues                   */
     { R"(\\GTA5\.exe$)", {{
@@ -849,7 +849,7 @@ namespace dxvk {
     { R"(\\(ShippingPC-AFEARGame|ARageMP)\.exe$)", {{
       { "d3d9.customVendorId",              "10de" },
       { "d3d9.customDeviceId",              "05E0" },
-      { "dxgi.nvapiHack",                   "False" },
+      { "dxgi.hideNvidiaGpu",              "False" },
     }} },
     /* Battle Fantasia Revised Edition         *
      * Speedup above 60fps                     */
