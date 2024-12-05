@@ -39,7 +39,7 @@ namespace dxvk {
 
   D3D11UserDefinedAnnotation::D3D11UserDefinedAnnotation(const D3D11UserDefinedAnnotation&)
   {
-    if (m_container->IsAnnotationEnabled())
+    if (m_container && m_container->IsAnnotationEnabled())
       RegisterUserDefinedAnnotation<true>(this);
   }
 
