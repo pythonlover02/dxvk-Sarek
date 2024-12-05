@@ -37,7 +37,7 @@ namespace dxvk {
 
   private:
 
-    D3D11DeviceContext*  m_container;
+    D3D11DeviceContext*  m_container = nullptr;
 
     // Stack depth for non-finalized BeginEvent calls
     int32_t m_eventDepth;
