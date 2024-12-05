@@ -36,6 +36,10 @@ namespace dxvk {
     // Emulate a UMA device
     this->emulateUMA = config.getOption<bool>("dxgi.emulateUMA", false);
     
+    // Interpret the memory limits as Megabytes
+    this->maxDeviceMemory = VkDeviceSize(config.getOption<int32_t>("dxgi.maxDeviceMemory", 0)) << 20;
+    this->maxSharedMemory = VkDeviceSize(config.getOption<int32_t>("dxgi.maxSharedMemory", 0)) << 20;
+
     // Expose Nvidia GPUs properly if NvAPI is enabled in environment
     this->hideNvidiaGpu = env::getEnvVar("DXVK_ENABLE_NVAPI") != "1";
     Tristate hideNvidiaGpuOption = config.getOption<Tristate>("dxgi.hideNvidiaGpu", Tristate::Auto);
