@@ -266,21 +266,38 @@ namespace dxvk {
     uint32_t inputWidth  = cursorTex->Desc()->Width;
     uint32_t inputHeight = cursorTex->Desc()->Height;
 
+    // Check if surface dimensions are powers of two.
+    if ((inputWidth  && (inputWidth  & (inputWidth  - 1)))
+     || (inputHeight && (inputHeight & (inputHeight - 1))))
+      return D3DERR_INVALIDCALL;
+
+    // It makes no sense to have a hotspot outside of the bitmap.
+    if ((inputWidth  && (XHotSpot > inputWidth  - 1))
+     || (inputHeight && (YHotSpot > inputHeight - 1)))
+      return D3DERR_INVALIDCALL;
+
+    D3DPRESENT_PARAMETERS params;
+    m_implicitSwapchain->GetPresentParameters(&params);
+
+    if (inputWidth  > params.BackBufferWidth
+     || inputHeight > params.BackBufferHeight)
+      return D3DERR_INVALIDCALL;
+
     // Always use a hardware cursor when windowed.
-    bool hwCursor  = m_presentParams.Windowed;
+    bool hwCursor  = params.Windowed;
 
     // Always use a hardware cursor w/h <= 32 px
     hwCursor |= inputWidth  <= HardwareCursorWidth
              || inputHeight <= HardwareCursorHeight;
 
+    D3DLOCKED_BOX lockedBox;
+    HRESULT hr = LockImage(cursorTex, 0, 0, &lockedBox, nullptr, D3DLOCK_READONLY);
+    if (FAILED(hr))
+      return hr;
+
+    const uint8_t* data  = reinterpret_cast<const uint8_t*>(lockedBox.pBits);
+
     if (hwCursor) {
-      D3DLOCKED_BOX lockedBox;
-      HRESULT hr = LockImage(cursorTex, 0, 0, &lockedBox, nullptr, D3DLOCK_READONLY);
-      if (FAILED(hr))
-        return hr;
-
-      const uint8_t* data  = reinterpret_cast<const uint8_t*>(lockedBox.pBits);
-
       // Windows works with a stride of 128, lets respect that.
       // Copy data to the bitmap...
       CursorBitmap bitmap = { 0 };
@@ -295,10 +312,33 @@ namespace dxvk {
 
       // Set this as our cursor.
       return m_cursor.SetHardwareCursor(XHotSpot, YHotSpot, bitmap);
+    } else {
+      uint32_t copyPitch = inputWidth * HardwareCursorFormatSize;
+
+      // Create a texture buffer to copy the cursor bitmap into
+      Com<IDirect3DTexture9> tex;
+      HRESULT hr = CreateTexture(inputWidth, inputHeight, 0, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &tex, NULL);
+      if (FAILED(hr))
+        return hr;
+
+      auto* destTex = GetCommonTexture(tex.ptr());
+
+      D3DLOCKED_BOX lockedBoxDest;
+      hr = LockImage(destTex, 0, 0, &lockedBoxDest, nullptr, D3DLOCK_DISCARD);
+      if (FAILED(hr))
+        return hr;
+
+      uint8_t* dataDest = reinterpret_cast<uint8_t*>(lockedBoxDest.pBits);
+
+      for (uint32_t h = 0; h < inputHeight; h++)
+        std::memcpy(&dataDest[h * copyPitch], &data[h * lockedBox.RowPitch], copyPitch);
+
+      UnlockImage(cursorTex, 0, 0);
+      UnlockImage(destTex, 0, 0);
+
+      return m_cursor.SetSoftwareCursor(XHotSpot, YHotSpot, tex);
     }
 
-    // Software Cursor...
-    Logger::warn("D3D9DeviceEx::SetCursorProperties: Software cursor not implemented.");
     return D3D_OK;
   }
 
@@ -360,6 +400,9 @@ namespace dxvk {
 
   HRESULT STDMETHODCALLTYPE D3D9DeviceEx::Reset(D3DPRESENT_PARAMETERS* pPresentationParameters) {
     D3D9DeviceLock lock = LockDevice();
+
+    m_flags.clr(D3D9DeviceFlag::InScene);
+    m_cursor.ResetCursor();
 
     HRESULT hr = ResetSwapChain(pPresentationParameters, nullptr);
     if (FAILED(hr))
@@ -3469,6 +3512,93 @@ namespace dxvk {
           HWND hDestWindowOverride,
     const RGNDATA* pDirtyRegion,
           DWORD dwFlags) {
+    D3D9_SOFTWARE_CURSOR* pSoftwareCursor = m_cursor.GetSoftwareCursor();
+
+    if (pSoftwareCursor->Bitmap != nullptr && m_cursor.IsCursorVisible()) {
+      D3DSURFACE_DESC srcDesc;
+      pSoftwareCursor->Bitmap->GetLevelDesc(0, &srcDesc);
+      D3DSURFACE_DESC dstDesc;
+      m_state.renderTargets[0]->GetDesc(&dstDesc);
+
+      m_cursor.RefreshSoftwareCursorPosition();
+
+      // Calculate cursor quad vertex coordinates based on render target edges and the win32 cursor position
+      float dstLeft   = pSoftwareCursor->X;
+      float dstTop    = pSoftwareCursor->Y;
+      float dstRight  = std::min(pSoftwareCursor->X + static_cast<float>(srcDesc.Width),  static_cast<float>(dstDesc.Width));
+      float dstBottom = std::min(pSoftwareCursor->Y + static_cast<float>(srcDesc.Height), static_cast<float>(dstDesc.Height));
+      // Calculate cursor texture coordinates based on quad rendering coordinates and render target edges
+      float srcRight   = dstRight  == static_cast<float>(dstDesc.Width)  ?
+                          dstRight  - pSoftwareCursor->X : static_cast<float>(srcDesc.Width);
+      float srcBottom  = dstBottom == static_cast<float>(dstDesc.Height) ?
+                          dstBottom - pSoftwareCursor->Y : static_cast<float>(srcDesc.Height);
+      // Calculate normalized texture coordinates (will be < 1.0f to handle right/bottom edge cursor clipping)
+      srcRight  /= static_cast<float>(srcDesc.Width);
+      srcBottom /= static_cast<float>(srcDesc.Height);
+
+      struct SWCURSORVERTEX {
+          FLOAT x, y, z, rhw;
+          FLOAT u, v;
+      };
+
+      std::array<SWCURSORVERTEX, 4> quadVertices = {{
+        { dstLeft,  dstTop, 0.0f, 1.0f, 0.0f, 0.0f },
+        { dstRight, dstTop, 0.0f, 1.0f, srcRight, 0.0f },
+        { dstLeft,  dstBottom, 0.0f, 1.0f, 0.0f, srcBottom },
+        { dstRight, dstBottom, 0.0f, 1.0f, srcRight, srcBottom },
+      }};
+      const size_t quadVerticesSize = quadVertices.size() * sizeof(SWCURSORVERTEX);
+
+      Com<IDirect3DVertexBuffer9> pVertexBuffer;
+      CreateVertexBuffer(quadVerticesSize, D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY,
+                         D3DFVF_XYZRHW | D3DFVF_TEX1, D3DPOOL_DEFAULT, &pVertexBuffer, NULL);
+
+      void* pVertices;
+      pVertexBuffer->Lock(0, quadVerticesSize, (void**)&pVertices, D3DLOCK_DISCARD);
+      memcpy(pVertices, quadVertices.data(), quadVerticesSize);
+      pVertexBuffer->Unlock();
+
+      // Capture pre-cursor draw state
+      DWORD alphaBlend;
+      GetRenderState(D3DRS_ALPHABLENDENABLE, &alphaBlend);
+      DWORD culling;
+      GetRenderState(D3DRS_CULLMODE, &culling);
+      DWORD fvf;
+      GetFVF(&fvf);
+      DWORD minFilter;
+      GetSamplerState(0, D3DSAMP_MINFILTER, &minFilter);
+      DWORD magFilter;
+      GetSamplerState(0, D3DSAMP_MAGFILTER, &magFilter);
+      Com<IDirect3DBaseTexture9> tex;
+      GetTexture(0, &tex);
+
+      // Temporarily enable alpha blending for the cursor texture
+      SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+      // Temporarily disable culling while drawing the cursor quad, as some
+      // games may not render it at all otherwise, due to their own preset
+      SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+      SetFVF(D3DFVF_XYZRHW | D3DFVF_TEX1);
+      // Filtering is not needed since our dimensions are exact
+      // and it only makes the cursor look more blurry
+      SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_NONE);
+      SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_NONE);
+      HRESULT hr = SetTexture(0, pSoftwareCursor->Bitmap.ptr());
+      if (FAILED(hr))
+        Logger::warn("D3D9DeviceEx::PresentEx: Failed to set software cursor bitmap texture");
+
+      hr = DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, pVertices, sizeof(SWCURSORVERTEX));
+      if (FAILED(hr))
+        Logger::warn("D3D9DeviceEx::PresentEx: Failed on software cursor draw call");
+
+      // Reinstate pre-cursor draw state
+      SetTexture(0, tex.ptr());
+      SetSamplerState(0, D3DSAMP_MINFILTER, minFilter);
+      SetSamplerState(0, D3DSAMP_MAGFILTER, magFilter);
+      SetFVF(fvf);
+      SetRenderState(D3DRS_CULLMODE, culling);
+      SetRenderState(D3DRS_ALPHABLENDENABLE, alphaBlend);
+    }
+
     return m_implicitSwapchain->Present(
       pSourceRect,
       pDestRect,
