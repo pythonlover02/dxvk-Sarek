@@ -39,18 +39,20 @@ namespace dxvk {
           HWND                   hFocusWindow,
           DWORD                  BehaviorFlags,
           Rc<DxvkDevice>         dxvkDevice)
-    : m_parent         ( pParent )
-    , m_deviceType     ( DeviceType )
-    , m_window         ( hFocusWindow )
-    , m_behaviorFlags  ( BehaviorFlags )
-    , m_adapter        ( pAdapter )
-    , m_dxvkDevice     ( dxvkDevice )
-    , m_shaderModules  ( new D3D9ShaderModuleSet )
-    , m_d3d9Options    ( dxvkDevice, pParent->GetInstance()->config() )
-    , m_multithread    ( BehaviorFlags & D3DCREATE_MULTITHREADED )
-    , m_isSWVP         ( (BehaviorFlags & D3DCREATE_SOFTWARE_VERTEXPROCESSING) ? true : false )
-    , m_csThread       ( dxvkDevice, dxvkDevice->createContext() )
-    , m_csChunk        ( AllocCsChunk() ) {
+    : m_parent             ( pParent )
+    , m_deviceType         ( DeviceType )
+    , m_window             ( hFocusWindow )
+    , m_behaviorFlags      ( BehaviorFlags )
+    , m_adapter            ( pAdapter )
+    , m_dxvkDevice         ( dxvkDevice )
+    , m_shaderModules      ( new D3D9ShaderModuleSet )
+    , m_d3d9Options        ( dxvkDevice, pParent->GetInstance()->config() )
+    , m_multithread        ( BehaviorFlags & D3DCREATE_MULTITHREADED )
+    , m_isSWVP             ( (BehaviorFlags & D3DCREATE_SOFTWARE_VERTEXPROCESSING) ? true : false )
+    , m_isD3D8Compatible   ( pParent->IsD3D8Compatible() )
+    , m_csThread           ( dxvkDevice, dxvkDevice->createContext() )
+    , m_csChunk            ( AllocCsChunk() )
+    , m_d3d8Bridge         ( this ) {
     // If we can SWVP, then we use an extended constant set
     // as SWVP has many more slots available than HWVP.
     bool canSWVP = CanSWVP();
@@ -179,6 +181,11 @@ namespace dxvk {
       return S_OK;
     }
 
+    if (riid == __uuidof(IDxvkD3D8Bridge)) {
+      *ppvObject = ref(&m_d3d8Bridge);
+      return S_OK;
+    }
+
     // We want to ignore this if the extended device is queried and we weren't made extended.
     if (riid == __uuidof(IDirect3DDevice9Ex))
       return E_NOINTERFACE;
@@ -225,7 +232,15 @@ namespace dxvk {
 
 
   HRESULT STDMETHODCALLTYPE D3D9DeviceEx::GetDeviceCaps(D3DCAPS9* pCaps) {
-    return m_adapter->GetDeviceCaps(m_deviceType, pCaps);
+    if (pCaps == nullptr)
+      return D3DERR_INVALIDCALL;
+
+    m_adapter->GetDeviceCaps(m_deviceType, pCaps);
+
+    // When in SWVP mode, 256 matrices can be used for indexed vertex blending
+    pCaps->MaxVertexBlendMatrixIndex = m_isSWVP ? 255 : 8;
+
+    return D3D_OK;
   }
 
 
@@ -414,6 +429,9 @@ namespace dxvk {
 
     Flush();
     SynchronizeCsThread(DxvkCsThread::SynchronizeAll);
+
+    if (m_d3d9Options.deferSurfaceCreation)
+      m_deviceHasBeenReset = true;
 
     return D3D_OK;
   }
@@ -7336,7 +7354,7 @@ namespace dxvk {
     rs[D3DRS_POINTSCALE_B]               = bit::cast<DWORD>(0.0f);
     rs[D3DRS_POINTSCALE_C]               = bit::cast<DWORD>(0.0f);
     rs[D3DRS_POINTSIZE]                  = bit::cast<DWORD>(1.0f);
-    rs[D3DRS_POINTSIZE_MIN]              = bit::cast<DWORD>(1.0f);
+    rs[D3DRS_POINTSIZE_MIN]              = m_isD3D8Compatible ? bit::cast<DWORD>(0.0f) : bit::cast<DWORD>(1.0f);
     rs[D3DRS_POINTSIZE_MAX]              = bit::cast<DWORD>(64.0f);
     UpdatePushConstant<D3D9RenderStateItem::PointSize>();
     UpdatePushConstant<D3D9RenderStateItem::PointSizeMin>();
