@@ -25,6 +25,8 @@
 
 #include "d3d9_shader_permutations.h"
 
+#include "d3d9_bridge.h"
+
 #include <vector>
 #include <type_traits>
 #include <unordered_map>
@@ -100,6 +102,7 @@ namespace dxvk {
 
     friend class D3D9SwapChainEx;
     friend class D3D9UserDefinedAnnotation;
+    friend class DxvkD3D8Bridge;
   public:
 
     D3D9DeviceEx(
@@ -928,6 +931,10 @@ namespace dxvk {
       return m_samplerCount.load();
     }
 
+    bool IsD3D8Compatible() const {
+      return m_isD3D8Compatible;
+    }
+
   private:
 
     DxvkCsChunkRef AllocCsChunk() {
@@ -952,6 +959,15 @@ namespace dxvk {
         EmitCsChunk(std::move(m_csChunk));
         m_csChunk = AllocCsChunk();
       }
+    }
+
+    /**
+     * \brief Returns whether the device has been reset and marks it as true.
+     * Used for the deferred surface creation workaround.
+     * (Device Reset detection for D3D9SwapChainEx::Present)
+     */
+    bool IsDeviceReset() {
+      return std::exchange(m_deviceHasBeenReset, false);
     }
 
     bool CanSWVP() {
@@ -1236,9 +1252,12 @@ namespace dxvk {
     D3D9ShaderMasks                 m_psShaderMasks = FixedFunctionMask;
 
     bool                            m_isSWVP;
+    bool                            m_isD3D8Compatible;
     bool                            m_amdATOC         = false;
     bool                            m_nvATOC          = false;
     bool                            m_ffZTest         = false;
+
+    bool                            m_deviceHasBeenReset = false;
 
     float                           m_depthBiasScale  = 0.0f;
 
@@ -1256,7 +1275,7 @@ namespace dxvk {
     D3D9ConstantLayout              m_psLayout;
     D3D9ConstantSets                m_consts[DxsoProgramTypes::Count];
 	
-	D3D9UserDefinedAnnotation*      m_annotation = nullptr;
+    D3D9UserDefinedAnnotation*      m_annotation = nullptr;
 
     D3D9ViewportInfo                m_viewportInfo;
 
@@ -1271,8 +1290,11 @@ namespace dxvk {
     std::atomic<int64_t>            m_availableMemory = { 0 };
     std::atomic<int32_t>            m_samplerCount    = { 0 };
 
+    // m_state should be declared last (i.e. freed first), because it
+    // references objects that can call back into the device when freed.
     Direct3DState9                  m_state;
 
+    DxvkD3D8Bridge                  m_d3d8Bridge;
   };
 
 }

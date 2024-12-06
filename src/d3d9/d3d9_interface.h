@@ -1,6 +1,7 @@
 #pragma once
 
 #include "d3d9_adapter.h"
+#include "d3d9_bridge.h"
 
 #include "../dxvk/dxvk_instance.h"
 
@@ -127,6 +128,17 @@ namespace dxvk {
 
     bool IsExtended() { return m_extended; }
 
+    bool IsD3D8Compatible() const {
+      return m_isD3D8Compatible;
+    }
+
+    void SetD3D8CompatibilityMode(bool compatMode) {
+      if (compatMode)
+        Logger::info("The D3D9 interface is now operating in D3D8 compatibility mode.");
+
+      m_isD3D8Compatible = compatMode;
+    }
+
     Rc<DxvkInstance> GetInstance() { return m_instance; }
 
   private:
@@ -137,7 +149,11 @@ namespace dxvk {
 
     Rc<DxvkInstance>              m_instance;
 
+    DxvkD3D8InterfaceBridge       m_d3d8Bridge;
+
     bool                          m_extended;
+
+    bool                          m_isD3D8Compatible = false;
 
     D3D9Options                   m_d3d9Options;
 
