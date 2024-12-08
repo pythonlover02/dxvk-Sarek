@@ -283,6 +283,7 @@ namespace dxvk {
 
         Logger::info(str::format("DXGI: Hiding actual GPU, reporting vendor ID 0x", std::hex, deviceProp.vendorID, ", device ID ", deviceProp.deviceID));
       }
+    }
     
     // Convert device name
     std::memset(pDesc->Description, 0, sizeof(pDesc->Description));
