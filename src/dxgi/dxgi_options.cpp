@@ -48,6 +48,12 @@ namespace dxvk {
       hideNvidiaGpuOption = Tristate::False;
     }
     applyTristate(this->hideNvidiaGpu, hideNvidiaGpuOption);
+
+    // Expose AMD and Intel GPU by default, unless a config override is active.
+    // Implement as a tristate so that we have the option to introduce similar
+    // logic to Nvidia later, if necessary.
+    this->hideAmdGpu = config.getOption<Tristate>("dxgi.hideAmdGpu", Tristate::Auto) == Tristate::True;
+    this->hideIntelGpu = config.getOption<Tristate>("dxgi.hideIntelGpu", Tristate::Auto) == Tristate::True;    
   }
   
 }

@@ -21,7 +21,7 @@ namespace dxvk {
     /* Batman Arkham Knight - doesn't like intel vendor id 
       (refuses to boot if vendor isn't 0x10de or 0x1002)  */
     { R"(\\BatmanAK\.exe$)", {{
-      { "dxgi.customVendorId",              "1002" },
+      { "dxgi.hideIntelGpu",                "True" },
     }} },
     /* Assassin's Creed Syndicate: amdags issues  */
     { R"(\\ACS\.exe$)", {{
@@ -59,12 +59,12 @@ namespace dxvk {
      * Intel needs to match the AMD result        */
     { R"(\\(farcry3|fc3_blooddragon)_d3d11\.exe$)", {{
       { "dxgi.hideNvidiaGpu",              "False" },
-      { "dxgi.customVendorId",              "1002" },
+      { "dxgi.hideIntelGpu",                "True" },
     }} },
     /* Far Cry 4 and Primal: Same as Far Cry 3    */
     { R"(\\(FarCry4|FCPrimal)\.exe$)", {{
       { "dxgi.hideNvidiaGpu",              "False" },
-      { "dxgi.customVendorId",              "1002" },
+      { "dxgi.hideIntelGpu",                "True" },
     }} },
     /* Frostpunk: Renders one frame with D3D9     *
      * after creating the DXGI swap chain         */
@@ -431,7 +431,7 @@ namespace dxvk {
     }} },
     /* Riders Republic - Statically linked AMDAGS */
     { R"(\\RidersRepublic(_BE)?\.exe$)", {{
-      { "dxgi.customVendorId",              "10de" },
+      { "dxgi.hideAmdGpu",                "True"   },
     }} },
     /* Kenshi                                     *
      * Helps CPU bound performance                */
@@ -447,7 +447,7 @@ namespace dxvk {
     /* Kena: Bridge of Spirits: intel water       * 
      * flickering issues                          */
     { R"(\\Kena-Win64-Shipping\.exe$)", {{
-      { "dxgi.customVendorId",              "1002" },
+      { "dxgi.hideIntelGpu",                 "True" },
     }} },
 
     /**********************************************/
