@@ -149,8 +149,8 @@ namespace dxvk {
     /// misc. imprecision on some vendors
     bool alphaTestWiggleRoom;
 
-    /// Apitrace mode: Maps all buffers in cached memory.
-    bool apitraceMode;
+    /// Cached dynamic buffers: Maps all buffers in cached memory.
+    bool cachedDynamicBuffers;
 
     /// Use device local memory for constant buffers.
     bool deviceLocalConstantBuffers;
