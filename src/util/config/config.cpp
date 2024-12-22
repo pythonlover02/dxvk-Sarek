@@ -609,12 +609,12 @@ namespace dxvk {
      * D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY buffer. *
      * Legend flickers with next gen content option. */
     { R"(\\(trl|tra|tru)\.exe$)", {{
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
       { "d3d9.maxFrameRate",                "60" },
     }} },
     /* Everquest                                 */
     { R"(\\eqgame\.exe$)", {{
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* Dark Messiah of Might & Magic             */
     { R"(\\mm\.exe$)", {{
@@ -806,11 +806,11 @@ namespace dxvk {
     }} },
     /* Witcher 1: Very long loading times       */
     { R"(\\witcher\.exe$)", {{
-      { "d3d9.apitraceMode",              "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* Hammer World Editor                      */
     { R"(\\(hammer(plusplus)?|mallet|wc)\.exe$)", {{
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* Fallout 3 - Doesn't like Intel Id       */
     { R"(\\Fallout3\.exe$)", {{
@@ -820,7 +820,7 @@ namespace dxvk {
      * Helps performance when Resizable BAR    *
      * is enabled                              */
     { R"(\\ASN_App_PcDx9_Final\.exe$)", {{
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* Black Mesa                              *
      * Artifacts & broken flashlight on Intel  */
@@ -848,7 +848,7 @@ namespace dxvk {
      * Main menu won't render after intros     *
      * and CPU bound performance               */
     { R"(\\(PANZERS|PANZERS_Phase_2)\.exe$)", {{
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* Halo Online                             *
      * Black textures                          */
@@ -886,7 +886,7 @@ namespace dxvk {
     }} },
     /* Battlestations Midway                   */
     { R"(\\Battlestationsmidway\.exe$)", {{
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* Sonic CD                                */
     { R"(\\soniccd\.exe$)", {{
@@ -914,7 +914,7 @@ namespace dxvk {
     /* Delta Force: Xtreme 1 & 2                 *
      * Black screen on Alt-Tab and performance   */
     { R"(\\(DFX|dfx2)\.exe$)", {{
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* Prototype                                 *
      * Incorrect shadows on AMD & Intel          */
@@ -929,13 +929,13 @@ namespace dxvk {
     /* Dungeons and Dragons: Dragonshard         *
      * Massive FPS decreases in some scenes      */
     { R"(\\Dragonshard\.exe$)", {{ 
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* Battle for Middle-earth 2 and expansion   *
      * Slowdowns in certain scenarios            */
     { R"(\\(The Battle for Middle-earth( \(tm\))? II( Demo)?)"
       R"(|The Lord of the Rings, The Rise of the Witch-king)\\game\.dat$)", {{
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* WRC4 - Audio breaks above 60fps           */
     { R"(\\WRC4\.exe$)", {{
@@ -951,11 +951,11 @@ namespace dxvk {
     /* APB: Reloaded                               *
      * Fixes frametime jumps when shooting         */
     { R"(\\APB\.exe$)", {{
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* Battle Mages - helps CPU bound perf         */
     { R"(\\Battle Mages\\mages\.exe$)", {{
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* Prince of Persia (2008) - Can get stuck     *
      * during loading at very high fps             */
@@ -978,7 +978,7 @@ namespace dxvk {
      * on all hardware.                            */
     { R"(\\(FarCry2|farcry2game)\.exe$)", {{
       { "d3d9.customVendorId",              "10de" },
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* Alpha Protocol - Rids unwanted reflections  */
     { R"(\\APGame\.exe$)", {{
@@ -1016,7 +1016,7 @@ namespace dxvk {
     }} },
     /* Motor City Online                         */
     { R"(\\MCity_d\.exe$)", {{
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
       { "d3d8.batching",                    "True" },
     }} },
     /* Railroad Tycoon 3                         */
@@ -1033,7 +1033,7 @@ namespace dxvk {
     /* Need for Speed III: Hot Pursuit           *
        (with the "Modern Patch")                 */
     { R"(\\nfs3\.exe$)", {{
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
       { "d3d8.batching",                    "True" },
     }} },
     /* Need for Speed: High Stakes / Road         *
@@ -1041,18 +1041,18 @@ namespace dxvk {
        Won't actually render anything in game     *
        without a memory limit in place            */
     { R"(\\nfs4\.exe$)", {{
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
       { "d3d9.memoryTrackTest",             "True" },
       { "d3d9.maxAvailableMemory",           "256" },
       { "d3d8.batching",                    "True" },
     }} },
     /* Need for Speed: Hot Pursuit 2              */
     { R"(\\NFSHP2\.exe$)", {{
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* Project I.G.I. 2: Covert Strike            */
     { R"(\\igi2\.exe$)", {{
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* Treasure Planet: Battle at Procyon        *
      * Declares v5 as color but shader uses v6   */
@@ -1091,11 +1091,11 @@ namespace dxvk {
     }} },
     /* Delta Force: Black Hawk Down               */
     { R"(\\dfbhd\.exe$)", {{
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* X2: The Threat                             */
     { R"(\\X2\.exe$)", {{
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* The Lord of the Rings:                     *
      * The Fellowship of the Ring                 */
@@ -1105,7 +1105,7 @@ namespace dxvk {
     }} },
     /* Art of Murder FBI Confidential - CPU perf  */
     { R"(\\Art of Murder - FBI Confidential\\game\.exe$)", {{
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* Max Payne 1 - Stalls waiting for an index buffer */
     { R"(\\MaxPayne\.exe$)", {{
@@ -1113,11 +1113,11 @@ namespace dxvk {
     }} },
     /* Z: Steel Soldiers                          */
     { R"(\\z2\.exe$)", {{
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* FIFA Football 2003                         */
     { R"(\\fifa2003(demo)?\.exe$)", {{
-      { "d3d9.apitraceMode",                "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* Splinter Cell: Pandora Tomorrow            *
      * Broken inputs and physics above 60 FPS     */
