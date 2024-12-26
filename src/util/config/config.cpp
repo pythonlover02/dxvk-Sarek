@@ -123,7 +123,7 @@ namespace dxvk {
     }} },
     /* Star Wars Battlefront (2015)               */
     { R"(\\starwarsbattlefront(trial)?\.exe$)", {{
-      { "dxgi.hideNvidiaGpu",              "False" },
+      { "dxgi.customVendorId",              "10de" },
     }} },
     /* Dark Souls Remastered                      */
     { R"(\\DarkSoulsRemastered\.exe$)", {{
