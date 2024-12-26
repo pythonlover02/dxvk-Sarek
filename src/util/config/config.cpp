@@ -823,6 +823,13 @@ namespace dxvk {
     { R"(\\(hammer(plusplus)?|mallet|wc)\.exe$)", {{
       { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
+    /* Dragon Age Origins                       *
+     * Keeps unmapping the same 3 1MB buffers   *
+     * thousands of times when you alt-tab out  *
+     * Causing it to crash OOM                  */
+    { R"(\\DAOrigins\.exe$)" , {{
+      { "d3d9.allowDirectBufferMapping",    "False" },
+    }} },
     /* Fallout 3 - Doesn't like Intel Id       */
     { R"(\\Fallout3\.exe$)", {{
       { "d3d9.customVendorId",              "10de" },
