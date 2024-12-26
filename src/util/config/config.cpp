@@ -494,7 +494,8 @@ namespace dxvk {
        The Sims Life Stories,
        The Sims Pet Stories,
        and The Sims Castaway Stories             */
-    { R"(\\(Sims2.*|TS2BodyShop|SimsLS|SimsPS|SimsCS)\.exe$)", {{
+    { R"(\\(Sims2.*|TS2BodyShop|SimsLS|SimsPS|SimsCS)"
+      R"(|The Sims 2 Content Manager|TS2HomeCrafterPlus)\.exe$)", {{
       { "d3d9.customVendorId",              "10de" },
       { "d3d9.customDeviceId",              "0091" },
       { "d3d9.customDeviceDesc",            "GeForce 7800 GTX" },
@@ -502,6 +503,7 @@ namespace dxvk {
       { "d3d9.supportX4R4G4B4",             "False" },
       { "d3d9.maxAvailableMemory",          "2048" },
       { "d3d9.memoryTrackTest",             "True" },
+      { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* Dead Space uses the a NULL render target instead
        of a 1x1 one if DF24 is NOT supported     
