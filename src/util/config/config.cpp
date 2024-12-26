@@ -911,11 +911,11 @@ namespace dxvk {
     /* Battlestations Midway                   */
     { R"(\\Battlestationsmidway\.exe$)", {{
       { "d3d9.cachedDynamicBuffers",        "True" },
+    }} },
     /* SkyDrift                                 *
      * Works around alt tab OOM crash           */
     { R"(\\SkyDrift\.exe$)" , {{
       { "d3d9.allowDirectBufferMapping",    "False" },
-    }} },
     }} },
     /* Sonic CD                                */
     { R"(\\soniccd\.exe$)", {{
