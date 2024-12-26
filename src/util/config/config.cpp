@@ -800,7 +800,6 @@ namespace dxvk {
     { R"(\\SR2_pc\.exe$)", {{
       { "d3d9.textureMemory",               "0" },
     }} },
-    }} },
     /* Heroes of Annihilated Empires            *
      * Has issues with texture rendering and    *
      * video memory detection otherwise.        */
