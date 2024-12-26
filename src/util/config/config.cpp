@@ -866,6 +866,7 @@ namespace dxvk {
      * Main menu won't render after intros     *
      * and CPU bound performance               */
     { R"(\\(PANZERS|PANZERS_Phase_2)\.exe$)", {{
+      { "d3d9.deferSurfaceCreation",        "True" },
       { "d3d9.cachedDynamicBuffers",        "True" },
     }} },
     /* Halo Online                             *
