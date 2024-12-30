@@ -36,10 +36,6 @@ namespace dxvk {
     { R"(\\EliteDangerous64\.exe$)", {{
       { "dxgi.customVendorId",              "10de" },
     }} },
-    /* The Vanishing of Ethan Carter Redux        */
-    { R"(\\EthanCarter-Win64-Shipping\.exe$)", {{
-      { "dxgi.customVendorId",              "10de" },
-    }} },
      /* EVE Online: Needs this to expose D3D12     *
      * otherwise D3D12 option on launcher is      *
      * greyed out                                 */
