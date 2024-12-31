@@ -1364,6 +1364,7 @@ namespace dxvk {
     Config config;
 
     // Load either $DXVK_CONFIG_FILE or $PWD/dxvk.conf
+    std::string filePath = env::getEnvVar("DXVK_CONFIG_FILE");
     std::string confLine = env::getEnvVar("DXVK_CONFIG");
 
     if (filePath == "")
