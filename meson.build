@@ -10,7 +10,6 @@ dxvk_is_msvc = cpp.get_id() == 'msvc'
 compiler_args = [
   '-msse',
   '-msse2',
-  '-msse3',
   '-mfpmath=sse',
   '-Wimplicit-fallthrough',
   # clang
