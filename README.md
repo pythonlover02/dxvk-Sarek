@@ -11,6 +11,7 @@ Also, a huge thank you to the following contributors for their invaluable help i
 - [Blisto91](https://github.com/Blisto91)
 - [AmerXz](https://github.com/AmerXz)
 - [Gcenx](https://github.com/Gcenx)
+- [WinterSnowfall](https://github.com/WinterSnowfall)
 
 Your contributions are greatly appreciated!
 
