@@ -432,6 +432,7 @@ namespace dxvk {
      * flickering issues                          */
     { R"(\\Kena-Win64-Shipping\.exe$)", {{
       { "dxgi.hideIntelGpu",                 "True" },
+    }} },
     /* The Hurricane of the Varstray               *
      * Too fast above 60fps                        */
     { R"(\\Varstray_steam(_demo)?\.exe$)", {{
