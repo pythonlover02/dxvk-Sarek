@@ -452,6 +452,11 @@ namespace dxvk {
     { R"(\\Varstray_steam(_demo)?\.exe$)", {{
       { "dxgi.maxFrameRate",                "60" },
     }} },
+    /* Styx: Shards of Darkness                    *
+     * Render issues on D3D11                      */
+    { R"(\\Varstray_steam(_demo)?\.exe$)", {{
+      { "d3d11.constantBufferRangeCheck",    "True" },
+    }} },
 
     /**********************************************/
     /* D3D9 GAMES                                 */
