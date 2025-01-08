@@ -422,6 +422,14 @@ namespace dxvk {
     { R"(\\kenshi_x64\.exe$)", {{
       { "d3d11.cachedDynamicResources",     "v"    },
     }} },
+    /* Granblue Relink: Spams pixel shader UAVs   *
+     * and assumes that AMD GPUs do not expose    *
+     * native command lists for AGS usage         */
+    { R"(\\granblue_fantasy_relink\.exe$)", {{
+      { "d3d11.ignoreGraphicsBarriers",     "True"  },
+      { "dxgi.hideAmdGpu",                   "True" },
+      { "dxgi.hideNvidiaGpu",               "False" },
+    }} },
     /* Crysis 1/Warhead - Game bug in d3d10 makes *
      * it select lowest supported refresh rate    */
     { R"(\\Crysis(64)?\.exe$)", {{
