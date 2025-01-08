@@ -433,6 +433,11 @@ namespace dxvk {
     { R"(\\Kena-Win64-Shipping\.exe$)", {{
       { "dxgi.hideIntelGpu",                 "True" },
     }} },
+    /* The Hurricane of the Varstray               *
+     * Too fast above 60fps                        */
+    { R"(\\Varstray_steam(_demo)?\.exe$)", {{
+      { "dxgi.maxFrameRate",                "60" },
+    }} },
 
     /**********************************************/
     /* D3D9 GAMES                                 */
