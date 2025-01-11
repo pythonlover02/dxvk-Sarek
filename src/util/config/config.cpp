@@ -454,7 +454,7 @@ namespace dxvk {
     }} },
     /* Styx: Shards of Darkness                    *
      * Render issues on D3D11                      */
-    { R"(\\Varstray_steam(_demo)?\.exe$)", {{
+    { R"(\\Styx2\.exe$)", {{
       { "d3d11.constantBufferRangeCheck",    "True" },
     }} },
 
